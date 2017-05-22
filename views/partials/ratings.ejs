@@ -4,9 +4,9 @@
       <th>LDAP</th>
       <th>Rating</th>
       <th>Wins</th>
-      <th>Win %</th>
-      <th>O Win %</th>
-      <th>D Win %</th>
+      <th>Win%</th>
+      <th>OWin%</th>
+      <th>DWin%</th>
     </tr>
   </thead>
   <tbody>
@@ -16,8 +16,8 @@
         <td><%= player.rating.toFixed(2) %></td>
         <td><%= player.games.wins %></td>
         <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
-        <td><%= (((player.gamesOff.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
-        <td><%= (((player.gamesDef.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+        <td><%= (((player.gamesOff.wins/(player.gamesOff.wins+player.gamesOff.losses))*100) || 0).toFixed(2) %>%</td>
+        <td><%= (((player.gamesDef.wins/(player.gamesDef.wins+player.gamesDef.losses))*100) || 0).toFixed(2) %>%</td>
       </tr>
     <% }); %>
   </tbody>
