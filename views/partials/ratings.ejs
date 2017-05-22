@@ -1,20 +1,33 @@
-<table class="table table-striped">
-  <tr>
-    <th>LDAP</th>
-    <th>Rating</th>
-    <th>Wins</th>
-    <th>Win %</th>
-    <th>O Win %</th>
-    <th>D Win %</th>
-  </tr>
-  <% players.forEach(function(player) { %>
+<table class="table table-striped" id="rating-table">
+  <thead>
     <tr>
-      <td><%= player.ldap %></td>
-      <td><%= player.rating.toFixed(2) %></td>
-      <td><%= player.gamesOff.wins + player.gamesDef.wins %></td>
-      <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
-      <td><%= (((player.gamesOff.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
-      <td><%= (((player.gamesDef.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+      <th>LDAP</th>
+      <th>Rating</th>
+      <th>Wins</th>
+      <th>Win %</th>
+      <th>O Win %</th>
+      <th>D Win %</th>
     </tr>
-  <% }); %>
+  </thead>
+  <tbody>
+    <% players.forEach(function(player) { %>
+      <tr>
+        <td><%= player.ldap %></td>
+        <td><%= player.rating.toFixed(2) %></td>
+        <td><%= player.gamesOff.wins + player.gamesDef.wins %></td>
+        <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+        <td><%= (((player.gamesOff.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+        <td><%= (((player.gamesDef.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+      </tr>
+    <% }); %>
+  </tbody>
 </table>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#rating-table').DataTable({
+      paging: false,
+      searching: false,
+    });
+  });
+</script>
