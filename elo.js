@@ -24,7 +24,7 @@ function calcKFactor(rating, gamesPlayed) {
   }
 }
 
-function calcEloFromTeam(toCalcRating, teammateRating, oppRating1, oppRating2, gamesPlayed, didWin) {
+function calcRatingFromTeam(toCalcRating, teammateRating, oppRating1, oppRating2, gamesPlayed, didWin) {
   var winExpectation = calcTeamWinExpect(toCalcRating, teammateRating, oppRating1, oppRating2);
   var score = didWin ? 1 : 0;
   var kFactor = calcKFactor(toCalcRating, gamesPlayed);
@@ -32,13 +32,13 @@ function calcEloFromTeam(toCalcRating, teammateRating, oppRating1, oppRating2, g
   return ratingFromElo(compElo);
 }
 
-function calcAllElosFromPlayers(winOff, winDef, losOff, losDef) {
-  var elos = {};
-  elos[winOff.ldap] = calcEloFromTeam(winOff.rating, winDef.rating, losOff.rating, losDef.rating, winOff.games.total, true);
-  elos[winDef.ldap] = calcEloFromTeam(winDef.rating, winOff.rating, losOff.rating, losDef.rating, winDef.games.total, true);
-  elos[losOff.ldap] = calcEloFromTeam(losOff.rating, losDef.rating, winOff.rating, winDef.rating, losOff.games.total, false);
-  elos[losDef.ldap] = calcEloFromTeam(losDef.rating, losOff.rating, winOff.rating, winDef.rating, losOff.games.total, false);
-  return elos;
+function calcAllRatingsFromPlayers(winOff, winDef, losOff, losDef) {
+  var ratings = {};
+  ratings[winOff.ldap] = calcRatingFromTeam(winOff.rating, winDef.rating, losOff.rating, losDef.rating, winOff.games.total, true);
+  ratings[winDef.ldap] = calcRatingFromTeam(winDef.rating, winOff.rating, losOff.rating, losDef.rating, winDef.games.total, true);
+  ratings[losOff.ldap] = calcRatingFromTeam(losOff.rating, losDef.rating, winOff.rating, winDef.rating, losOff.games.total, false);
+  ratings[losDef.ldap] = calcRatingFromTeam(losDef.rating, losOff.rating, winOff.rating, winDef.rating, losOff.games.total, false);
+  return ratings;
 }
 
-module.exports.calcAllElosFromPlayers = calcAllElosFromPlayers;
+module.exports.calcAllRatingsFromPlayers = calcAllRatingsFromPlayers;
