@@ -2,19 +2,30 @@
   <div class="panel-heading">
     <h3 class="panel-title">Add Game</h3>
   </div>
+  <div class="warning has-warning">Form will not submit if any winning LDAP is equal to any losing LDAP.</div>
+  <div class="warning has-warning">(Repeat LDAPs on the same team are okay to indicate 1v1 or 1v2).</div>
   <div class="panel-body">
     <form method="POST" action="/addGame">
       <div class="form-group">
-        <label for="winning_user_1">Winning User 1</label>
-        <select multiple class="form-control" name="winOffLdap">
-          <% ldaps.forEach(function(ldap) { %>
-            <option value=<%= ldap %>><%= ldap %></option>
-          <% }); %>
+        <label for="winning_goals">Winning Goals</label>
+        <select class="form-control" name="winGoals">
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
         </select>
       </div>
+
       <div class="form-group">
-        <label for="winning_user_2">Winning User 2</label>
-        <select multiple class="form-control" name="winDefLdap">
+        <label for="winning_user_1">Winning User 1</label>
+        <select class="form-control" name="winOffLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
           <% }); %>
@@ -22,8 +33,44 @@
       </div>
 
       <div class="form-group">
+        <label for="winning_user_2">Winning User 2</label>
+        <select class="form-control" name="winDefLdap">
+          <% ldaps.forEach(function(ldap) { %>
+            <option value=<%= ldap %>><%= ldap %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="losing_goals">Losing Goals</label>
+        <select class="form-control" name="losGoals">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+        </select>
+      </div>
+
+      <div class="form-group">
         <label for="losing_user_1">Losing User 1</label>
-        <select multiple class="form-control" name="losOffLdap">
+        <select class="form-control" name="losOffLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
           <% }); %>
@@ -31,7 +78,7 @@
       </div>
       <div class="form-group">
         <label for="losing_user_2">Losing User 2</label>
-        <select multiple class="form-control" name="losDefLdap">
+        <select class="form-control" name="losDefLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
           <% }); %>

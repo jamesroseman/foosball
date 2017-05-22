@@ -10,11 +10,11 @@
   <% players.forEach(function(player) { %>
     <tr>
       <td><%= player.ldap %></td>
-      <td><%= player.rating %></td>
+      <td><%= player.rating.toFixed(2) %></td>
       <td><%= player.gamesOff.wins + player.gamesDef.wins %></td>
-      <td><%= ((player.games.wins/player.games.total)*100) || 0 %>%</td>
-      <td><%= ((player.gamesOff.wins/player.games.total)*100) || 0 %>%</td>
-      <td><%= ((player.gamesDef.wins/player.games.total)*100) || 0 %>%</td>
+      <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+      <td><%= (((player.gamesOff.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
+      <td><%= (((player.gamesDef.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>
     </tr>
   <% }); %>
 </table>

@@ -52,8 +52,14 @@ app.get('/addGame', function(request, response) {
 });
 
 app.post('/addGame', function(request, response) {
-  // TODO: Store in DB
   // TODO: form validation
+  if (request.body.winOffLdap == request.body.losOffLdap ||
+      request.body.winOffLdap == request.body.losDefLdap ||
+      request.body.winDefLdap == request.body.losOffLdap ||
+      request.body.winDefLdap == request.body.losDefLdap) {
+        response.redirect('/addGame');
+        return;
+      }
   var newPlayersDb = {};
   var ldaps = [request.body.winOffLdap, request.body.winDefLdap, request.body.losOffLdap, request.body.losDefLdap];
   database.ref("players").once("value").then(function (snapshot) {
@@ -66,22 +72,22 @@ app.post('/addGame', function(request, response) {
     var elos = elo.calcAllElosFromPlayers(winOff, winDef, losOff, losDef);
 
     // Set new player values
-    newPlayersDb[winOff.ldap].games.total = newPlayersDb[winOff.ldap].games+1;
+    newPlayersDb[winOff.ldap].games.total = newPlayersDb[winOff.ldap].games.total+1;
     newPlayersDb[winOff.ldap].games.wins = newPlayersDb[winOff.ldap].games.wins+1;
     newPlayersDb[winOff.ldap].gamesOff.wins = newPlayersDb[winOff.ldap].gamesOff.wins+1;
     newPlayersDb[winOff.ldap].rating = elos[winOff.ldap];
 
-    newPlayersDb[winDef.ldap].games.total = newPlayersDb[winDef.ldap].games+1;
+    newPlayersDb[winDef.ldap].games.total = newPlayersDb[winDef.ldap].games.total+1;
     newPlayersDb[winDef.ldap].games.wins = newPlayersDb[winDef.ldap].games.wins+1;
     newPlayersDb[winDef.ldap].gamesDef.wins = newPlayersDb[winDef.ldap].gamesDef.wins+1;
     newPlayersDb[winDef.ldap].rating = elos[winDef.ldap];
 
-    newPlayersDb[losOff.ldap].games.total = newPlayersDb[losOff.ldap].games+1;
+    newPlayersDb[losOff.ldap].games.total = newPlayersDb[losOff.ldap].games.total+1;
     newPlayersDb[losOff.ldap].games.losses = newPlayersDb[losOff.ldap].games.losses+1;
     newPlayersDb[losOff.ldap].gamesOff.losses = newPlayersDb[losOff.ldap].gamesOff.losses+1;
     newPlayersDb[losOff.ldap].rating = elos[losOff.ldap];
 
-    newPlayersDb[losDef.ldap].games.total = newPlayersDb[losDef.ldap].games+1;
+    newPlayersDb[losDef.ldap].games.total = newPlayersDb[losDef.ldap].games.total+1;
     newPlayersDb[losDef.ldap].games.losses = newPlayersDb[losDef.ldap].games.losses+1;
     newPlayersDb[losDef.ldap].gamesDef.losses = newPlayersDb[losDef.ldap].gamesDef.losses+1;
     newPlayersDb[losDef.ldap].rating = elos[losDef.ldap];
@@ -90,6 +96,47 @@ app.post('/addGame', function(request, response) {
     for(var i=0; i<ldaps.length; i++) {
       database.ref("players/" + ldaps[i]).set(newPlayersDb[ldaps[i]]);
     }
+    database.ref("gamelog/" + Date.now()).set({
+      "winGoals": request.body.winGoals,
+      "winOff": winOff.ldap,
+      "winDef": winDef.ldap,
+      "losGoals": request.body.losGoals,
+      "losOff": losOff.ldap,
+      "losDef": losDef.ldap
+    });
+    response.redirect('/');
+  });
+});
+
+app.get('/addUser', function(request, response) {
+  response.render('pages/addUser', { page: "addUser" });
+});
+
+app.post('/addUser', function(request, response) {
+  database.ref("players").once("value").then(function (snapshot) {
+    var ldap = request.body.ldap;
+    var ldaps = Object.keys(snapshot.val());
+    if (!request.body.ldap || ldaps.indexOf(ldap) > -1) {
+      response.redirect('/addUser');
+      return;
+    }
+    database.ref("players/" + ldap).set({
+      "games": {
+        "losses": 0,
+        "total": 0,
+        "wins": 0
+      },
+      "gamesDef": {
+        "losses": 0,
+        "wins": 0
+      },
+      "gamesOff": {
+        "losses": 0,
+        "wins": 0
+      },
+      "ldap": ldap,
+      "rating": 1200
+    });
     response.redirect('/');
   });
 });
