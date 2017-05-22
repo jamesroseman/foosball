@@ -24,7 +24,7 @@
       </div>
 
       <div class="form-group">
-        <label for="winning_user_1">Winning User 1</label>
+        <label for="winning_user_1">Winning Offense</label>
         <select class="form-control" name="winOffLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-group">
-        <label for="winning_user_2">Winning User 2</label>
+        <label for="winning_user_2">Winning Defense</label>
         <select class="form-control" name="winDefLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
@@ -69,7 +69,7 @@
       </div>
 
       <div class="form-group">
-        <label for="losing_user_1">Losing User 1</label>
+        <label for="losing_user_1">Losing Offense</label>
         <select class="form-control" name="losOffLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
@@ -77,7 +77,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="losing_user_2">Losing User 2</label>
+        <label for="losing_user_2">Losing Defense</label>
         <select class="form-control" name="losDefLdap">
           <% ldaps.forEach(function(ldap) { %>
             <option value=<%= ldap %>><%= ldap %></option>
