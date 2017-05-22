@@ -1,11 +1,11 @@
 <nav class="navbar navbar-default navbar-static-top navbar-inverse">
   <div class="container">
     <ul class="nav navbar-nav">
-      <li class="active">
-        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+      <li class=<% if(page == "home"){ %>"active"<% } else { %>"inactive"<% } %>>
+        <a href="/">Home</a>
       </li>
-      <li>
-        <a href="https://devcenter.heroku.com/articles/how-heroku-works"><span class="glyphicon glyphicon-user"></span> How Heroku Works</a>
+      <li class=<% if(page == "addGame"){ %>"active"<% } else { %>"inactive"<% } %>>
+        <a href="/addGame">Add Game</a>
       </li>
     </ul>
   </div>

@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Add Game</h3>
+  </div>
+  <div class="panel-body">
+    <form method="POST" action="/addGame">
+      <div class="form-group">
+        <label for="winning_user_1">Winning User 1</label>
+        <select multiple class="form-control" name="winOffLdap">
+          <% ldaps.forEach(function(ldap) { %>
+            <option value=<%= ldap %>><%= ldap %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="winning_user_2">Winning User 2</label>
+        <select multiple class="form-control" name="winDefLdap">
+          <% ldaps.forEach(function(ldap) { %>
+            <option value=<%= ldap %>><%= ldap %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="losing_user_1">Losing User 1</label>
+        <select multiple class="form-control" name="losOffLdap">
+          <% ldaps.forEach(function(ldap) { %>
+            <option value=<%= ldap %>><%= ldap %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="losing_user_2">Losing User 2</label>
+        <select multiple class="form-control" name="losDefLdap">
+          <% ldaps.forEach(function(ldap) { %>
+            <option value=<%= ldap %>><%= ldap %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-default">Add Game</button>
+    </form>
+  </div>
+</div>
