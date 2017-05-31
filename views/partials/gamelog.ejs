@@ -16,10 +16,10 @@
         <td><%= game.date.toLocaleDateString() %></td>
         <td><%= game.winGoals %></td>
         <td><%= game.losGoals %></td>
-        <td><%= game.winOff.ldap %></td>
-        <td><%= game.winDef.ldap %></td>
-        <td><%= game.losOff.ldap %></td>
-        <td><%= game.losDef.ldap %></td>
+        <td><a target="_blank" href="/stats/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
+        <td><a target="_blank" href="/stats/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
+        <td><a target="_blank" href="/stats/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
+        <td><a target="_blank" href="/stats/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
       </tr>
     <% }); %>
   </tbody>

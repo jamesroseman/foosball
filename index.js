@@ -57,6 +57,7 @@ app.get('/stats/:ldap', function(request, response) {
       scored: 0,
       allowed: 0
     },
+    winP: 0.0,
     points: {
       scored: 0,
       allowed: 0
@@ -78,28 +79,28 @@ app.get('/stats/:ldap', function(request, response) {
         games.push(gamelog[timestamps[i]]);
 
         if (game.winOff.ldap == ldap) {
+          totals.wins++;
           totals.off++;
           totals.points.scored += parseInt(gamelog[timestamps[i]].winGoals);
         } else if (game.losOff.ldap == ldap) {
+          totals.losses++;
           totals.off++;
           totals.points.scored += parseInt(gamelog[timestamps[i]].losGoals);
         } else if (game.winDef.ldap == ldap) {
+          totals.wins++;
           totals.def++;
           totals.points.allowed += parseInt(gamelog[timestamps[i]].losGoals);
         } else if (game.losDef.ldap == ldap) {
+          totals.losses++;
           totals.def++;
           totals.points.allowed += parseInt(gamelog[timestamps[i]].winGoals);
         }
       }
     }
-    database.ref("players").orderByChild("ldap").equalTo(ldap).once("value").then(function (playerSnapshot) {
-      var player = playerSnapshot.val()[ldap];
-      totals.wins = player.games.wins;
-      totals.losses = player.games.losses;
-      totals.avgPoints.scored = totals.points.scored / totals.off;
-      totals.avgPoints.allowed = totals.points.allowed / totals.def;
-      response.render('pages/stats', { page: "stats", games: games, totals: totals });
-    });
+    totals.winP = totals.wins / (totals.wins + totals.losses) * 100;
+    totals.avgPoints.scored = totals.points.scored / totals.off;
+    totals.avgPoints.allowed = totals.points.allowed / totals.def;
+    response.render('pages/stats', { page: "stats", games: games, totals: totals, ldap: ldap });
   });
 });
 

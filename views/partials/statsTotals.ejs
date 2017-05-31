@@ -3,6 +3,7 @@
     <tr>
       <th>Wins</th>
       <th>Losses</th>
+      <th>Win %</th>
       <th>Avg. Scored</th>
       <th>Avg. Allowed</th>
       <th>Scored</th>
@@ -13,6 +14,7 @@
     <tr>
       <td><%= totals.wins %></td>
       <td><%= totals.losses %></td>
+      <td><%= totals.winP.toFixed(2) %></td>
       <td><%= totals.avgPoints.scored.toFixed(2) %></td>
       <td><%= totals.avgPoints.allowed.toFixed(2) %></td>
       <td><%= totals.points.scored %></td>
