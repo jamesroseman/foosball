@@ -8,11 +8,10 @@
   <% include ../partials/nav.ejs %>
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <% include ../partials/addGameForm.ejs %>
-      </div>
+    <div class="alert alert-info" role="alert">
+      <strong>Warning!</strong> Form will not submit if any winning LDAP is equal to any losing LDAP.
     </div>
+    <% include ../partials/addGameForm.ejs %>
   </div>
 </body>
 

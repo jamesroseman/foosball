@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+
+
+  <div class="container">
+    <div>
+      <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> Stats are based only on games entered in the system.
+      </div>
+      <h2>Totals</h2>
+      <% include ../partials/statsTotals.ejs %>
+      <h2>Gamelog</h2>
+      <% include ../partials/gamelog.ejs %>
+    </div>
+  </div>
+</body>
+
+</html>

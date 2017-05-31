@@ -1,0 +1,37 @@
+<table class="table table-striped" id="gamelog-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>W Pts</th>
+      <th>L Pts</th>
+      <th>W Off</th>
+      <th>W Def</th>
+      <th>L Off</th>
+      <th>L Def</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% games.forEach(function(game) { %>
+      <tr>
+        <td><%= game.date.toLocaleDateString() %></td>
+        <td><%= game.winGoals %></td>
+        <td><%= game.losGoals %></td>
+        <td><%= game.winOff.ldap %></td>
+        <td><%= game.winDef.ldap %></td>
+        <td><%= game.losOff.ldap %></td>
+        <td><%= game.losDef.ldap %></td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#gamelog-table').DataTable({
+      paging: true,
+      searching: false,
+      pageLength: 10,
+      order: [[ 0, 'desc' ]]
+    });
+  });
+</script>

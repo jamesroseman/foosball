@@ -8,11 +8,10 @@
   <% include ../partials/nav.ejs %>
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <% include ../partials/addUserForm.ejs %>
-      </div>
+    <div class="alert alert-info" role="alert">
+      <strong>Warning!</strong> Form will not submit LDAP already exists. Check Ratings page.
     </div>
+    <% include ../partials/addUserForm.ejs %>
   </div>
 </body>
 
