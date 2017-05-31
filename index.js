@@ -47,6 +47,19 @@ app.get('/', function(request, response) {
   });
 });
 
+app.get('/gamelog', function(request, response) {
+  var games = [];
+  database.ref("gamelog").once("value").then(function (snapshot) {
+    var gamelog = snapshot.val();
+    var timestamps = Object.keys(gamelog);
+    for (var i=0; i<timestamps.length; i++) {
+      gamelog[timestamps[i]].date = new Date(parseInt(timestamps[i]));
+      games.push(gamelog[timestamps[i]]);
+    }
+    response.render('pages/gamelog', { page: "gamelog", games: games });
+  });
+});
+
 app.get('/stats/:ldap', function(request, response) {
   var ldap = request.params.ldap;
   var games = [];
