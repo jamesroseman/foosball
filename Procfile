@@ -1,1 +1,1 @@
-web: node index.js
+web: TZ='US/Eastern' node index.js
