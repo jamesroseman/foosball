@@ -13,13 +13,13 @@
   <tbody>
     <% games.forEach(function(game) { %>
       <tr>
-        <td><%= game.date.toLocaleDateString() %></td>
+        <td data-order="<%= game.date.getTime() %>"><%= game.date.toLocaleDateString() %> <%= game.date.toLocaleTimeString() %></td>
         <td><%= game.winGoals %></td>
         <td><%= game.losGoals %></td>
-        <td><a target="_blank" href="/stats/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
-        <td><a target="_blank" href="/stats/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
-        <td><a target="_blank" href="/stats/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
-        <td><a target="_blank" href="/stats/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
+        <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/stats/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
+        <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/stats/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
+        <td data-order="<%= game.losOff.ldap %>"><a target="_blank" href="/stats/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
+        <td data-order="<%= game.losDef.ldap %>"><a target="_blank" href="/stats/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
       </tr>
     <% }); %>
   </tbody>
