@@ -132,7 +132,7 @@ app.get('/addGame', function(request, response) {
     for (var i=0; i<ldaps.length; i++) {
       players.push(playersDb[ldaps[i]]);
     }
-    response.render('pages/addGame', { page: "addGame", ldaps: ldaps });
+    response.render('pages/addGame', { page: "addGame", ldaps: ldaps, errors: request.query.errors });
   });
 });
 
@@ -143,7 +143,7 @@ app.post('/addGame', function(request, response) {
       request.body.winDefLdap == request.body.losOffLdap ||
       request.body.winDefLdap == request.body.losDefLdap
     ) {
-        response.redirect('/addGame');
+        response.redirect('/addGame?errors=1');
         return;
       }
   var ldaps = [request.body.winOffLdap, request.body.winDefLdap, request.body.losOffLdap, request.body.losDefLdap];
