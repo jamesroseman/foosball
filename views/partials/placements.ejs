@@ -1,0 +1,26 @@
+<table class="table table-striped datatable" id="placements-table">
+  <thead>
+    <tr>
+      <th>LDAP</th>
+      <th>Games</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% placements.forEach(function(player) { %>
+      <tr>
+        <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
+        <td><%= player.games.total %></td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#placements-table').DataTable({
+      paging: false,
+      searching: false,
+      order: [[1, 'desc']]
+    });
+  });
+</script>

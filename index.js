@@ -30,6 +30,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   var players = [];
+  var placements = [];
   database.ref("players").once("value").then(function (snapshot) {
     var playersDb = snapshot.val();
     var ldaps = Object.keys(playersDb);
@@ -40,10 +41,12 @@ app.get('/', function(request, response) {
         playersDb[ldaps[i]] = defaults.defaultPlayer(ldaps[i]);
         playersDb[ldaps[i]].rating = 0;
         playersDb[ldaps[i]].games.total = player.games.total;
+        placements.push(playersDb[ldaps[i]]);
+      } else {
+        players.push(playersDb[ldaps[i]]);
       }
-      players.push(playersDb[ldaps[i]]);
     }
-    response.render('pages/index', { page: "home", players: players, ldaps: ldaps });
+    response.render('pages/index', { page: "home", players: players, placements: placements, ldaps: ldaps });
   });
 });
 
@@ -60,10 +63,11 @@ app.get('/gamelog', function(request, response) {
   });
 });
 
-app.get('/stats/:ldap', function(request, response) {
+app.get('/u/:ldap', function(request, response) {
   var ldap = request.params.ldap;
   var games = [];
-  var totals = {
+  var totals =
+  {
     wins: 0,
     losses: 0,
     avgPoints: {
@@ -80,40 +84,43 @@ app.get('/stats/:ldap', function(request, response) {
   }
   database.ref("gamelog").once("value").then(function (snapshot) {
     var gamelog = snapshot.val();
-    var timestamps = Object.keys(gamelog);
-    for (var i=0; i<timestamps.length; i++) {
-      var game = gamelog[timestamps[i]];
-      if (game.winOff.ldap == ldap ||
-          game.winDef.ldap == ldap ||
-          game.losOff.ldap == ldap ||
-          game.losDef.ldap == ldap)
-      {
-        gamelog[timestamps[i]].date = new Date(parseInt(timestamps[i]));
-        games.push(gamelog[timestamps[i]]);
+    database.ref("players").orderByChild("ldap").equalTo(ldap).once("value").then(function (snap) {
+      var playersDb = snap.val()[ldap];
+      var timestamps = Object.keys(gamelog);
+      for (var i=0; i<timestamps.length; i++) {
+        var game = gamelog[timestamps[i]];
+        if (game.winOff.ldap == ldap ||
+            game.winDef.ldap == ldap ||
+            game.losOff.ldap == ldap ||
+            game.losDef.ldap == ldap)
+        {
+          gamelog[timestamps[i]].date = new Date(parseInt(timestamps[i]));
+          games.push(gamelog[timestamps[i]]);
 
-        if (game.winOff.ldap == ldap) {
-          totals.wins++;
-          totals.off++;
-          totals.points.scored += parseInt(gamelog[timestamps[i]].winGoals);
-        } else if (game.losOff.ldap == ldap) {
-          totals.losses++;
-          totals.off++;
-          totals.points.scored += parseInt(gamelog[timestamps[i]].losGoals);
-        } else if (game.winDef.ldap == ldap) {
-          totals.wins++;
-          totals.def++;
-          totals.points.allowed += parseInt(gamelog[timestamps[i]].losGoals);
-        } else if (game.losDef.ldap == ldap) {
-          totals.losses++;
-          totals.def++;
-          totals.points.allowed += parseInt(gamelog[timestamps[i]].winGoals);
+          if (game.winOff.ldap == ldap) {
+            totals.wins++;
+            totals.off++;
+            totals.points.scored += parseInt(gamelog[timestamps[i]].winGoals);
+          } else if (game.losOff.ldap == ldap) {
+            totals.losses++;
+            totals.off++;
+            totals.points.scored += parseInt(gamelog[timestamps[i]].losGoals);
+          } else if (game.winDef.ldap == ldap) {
+            totals.wins++;
+            totals.def++;
+            totals.points.allowed += parseInt(gamelog[timestamps[i]].losGoals);
+          } else if (game.losDef.ldap == ldap) {
+            totals.losses++;
+            totals.def++;
+            totals.points.allowed += parseInt(gamelog[timestamps[i]].winGoals);
+          }
         }
       }
-    }
-    totals.winP = totals.wins / (totals.wins + totals.losses) * 100;
-    totals.avgPoints.scored = totals.points.scored / totals.off;
-    totals.avgPoints.allowed = totals.points.allowed / totals.def;
-    response.render('pages/stats', { page: "stats", games: games, totals: totals, ldap: ldap });
+      totals.winP = totals.wins / (totals.wins + totals.losses) * 100;
+      totals.avgPoints.scored = totals.points.scored / totals.off;
+      totals.avgPoints.allowed = totals.points.allowed / totals.def;
+      response.render('pages/stats', { page: "stats", player: playersDb, games: games, totals: totals, ldap: ldap });
+    });
   });
 });
 
@@ -218,7 +225,7 @@ app.post('/addGame', function(request, response) {
 });
 
 app.get('/addUser', function(request, response) {
-  response.render('pages/addUser', { page: "addUser" });
+  response.render('pages/addUser', { page: "addUser", errors: request.query.errors });
 });
 
 app.post('/addUser', function(request, response) {
@@ -226,13 +233,18 @@ app.post('/addUser', function(request, response) {
     var ldap = request.body.ldap;
     var ldaps = Object.keys(snapshot.val());
     if (!request.body.ldap || ldaps.indexOf(ldap) > -1) {
-      response.redirect('/addUser');
+      response.redirect('/addUser?errors=true');
       return;
     }
     database.ref("players/" + ldap).set(defaults.defaultPlayer(ldap));
     response.redirect('/');
   });
 });
+
+app.get('/summer', function(request, response) {
+  response.render('pages/summer', { page: "summer" });
+});
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

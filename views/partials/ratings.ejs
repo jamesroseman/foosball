@@ -1,4 +1,4 @@
-<table class="table table-striped" id="rating-table">
+<table class="table table-striped datatable" id="rating-table">
   <thead>
     <tr>
       <th>LDAP</th>
@@ -13,7 +13,7 @@
   <tbody>
     <% players.forEach(function(player) { %>
       <tr>
-        <td><a target="_blank" href="/stats/<%= player.ldap %>"><%= player.ldap %></a></td>
+        <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
         <td><%= player.rating.toFixed(2) %></td>
         <td><%= player.games.wins %></td>
         <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>

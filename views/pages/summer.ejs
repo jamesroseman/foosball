@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Foosball | Summer</title>
+  <% include ../partials/header.ejs %>
+</head>
+
+
+<body>
+  <% include ../partials/nav.ejs %>
+
+  <div class="container">
+
+    <div class="alert alert-success" role="alert">
+      <strong>Relax!</strong> Your alltime rating isn't going anywhere.
+    </div>
+
+    <div class="jumbotron bg-info text-white">
+      <h1 class="display-3">Summer Season</h1>
+      <p class="lead">Twitter Boston's first ranked season starts <strong>June 21st</strong>!</p>
+      <hr class="my-4">
+      <p>
+
+      </p>
+      <div>
+        <h3>What about my rating?</h3>
+        <p>
+          Your alltime rating will continue to be calculated (as well as your
+          non-season rating). You'll be able to find it in your personal stats
+          page (at "/u/:ldap").
+        </p>
+        <h3>Why are we doing this?</h3>
+        <p>
+          When a new player enters the system, their rating can take a few games
+          to settle into their true rating. On a long enough scale these
+          discrepancies don't matter, but an influx of new players to a system
+          where some players have over 100 games can negatively affect veteran
+          players. To mitigate these outlier ratings, competitive e-sports
+          typically run seasons. This way, all players go through placements
+          at roughly the same time every three months.
+        </p>
+        <h3>Can we have an end-of-season tournament?</h3>
+        <p>
+          If there's enough support for it, the rankings at the end of the
+          season would be perfect for seeding an elimination-style tournament.
+        </p>
+        <h3>Who do I contact with complaints and ideas?</h3>
+        <p>
+          <a href="mailto:jroseman@twitter.com">Me!</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<% include ../partials/footer.ejs %>
+
+</html>
