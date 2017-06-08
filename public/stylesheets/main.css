@@ -13,9 +13,3 @@ h2 {
 #system-stats-warning {
   margin-top: 15px;
 }
-
-@media (max-width: 770px) {
-    .datatable {
-      font-size: 12px;
-    }
-}
