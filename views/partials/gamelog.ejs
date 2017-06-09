@@ -1,29 +1,31 @@
-<table class="table table-striped datatable" id="gamelog-table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>W Pts</th>
-      <th>L Pts</th>
-      <th>W Off</th>
-      <th>W Def</th>
-      <th>L Off</th>
-      <th>L Def</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% games.forEach(function(game) { %>
+<div class="table-wrapper">
+  <table class="table table-striped datatable" id="gamelog-table">
+    <thead>
       <tr>
-        <td data-order="<%= game.date.getTime() %>"><%= game.date.toLocaleDateString() %> <%= game.date.toLocaleTimeString() %></td>
-        <td><%= game.winGoals %></td>
-        <td><%= game.losGoals %></td>
-        <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
-        <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
-        <td data-order="<%= game.losOff.ldap %>"><a target="_blank" href="/u/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
-        <td data-order="<%= game.losDef.ldap %>"><a target="_blank" href="/u/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
+        <th>Date</th>
+        <th>W Pts</th>
+        <th>L Pts</th>
+        <th>W Off</th>
+        <th>W Def</th>
+        <th>L Off</th>
+        <th>L Def</th>
       </tr>
-    <% }); %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% games.forEach(function(game) { %>
+        <tr>
+          <td data-order="<%= game.date.getTime() %>"><%= game.date.toLocaleDateString() %> <%= game.date.toLocaleTimeString() %></td>
+          <td><%= game.winGoals %></td>
+          <td><%= game.losGoals %></td>
+          <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
+          <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
+          <td data-order="<%= game.losOff.ldap %>"><a target="_blank" href="/u/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
+          <td data-order="<%= game.losDef.ldap %>"><a target="_blank" href="/u/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function(){
