@@ -1,24 +1,26 @@
-<table class="table table-striped datatable" id="rating-table">
-  <thead>
-    <tr>
-      <th>Wins</th>
-      <th>Losses</th>
-      <th>Win %</th>
-      <th>Avg. Scored</th>
-      <th>Avg. Allowed</th>
-      <th>Scored</th>
-      <th>Allowed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= totals.wins %></td>
-      <td><%= totals.losses %></td>
-      <td><%= totals.winP.toFixed(2) %></td>
-      <td><%= totals.avgPoints.scored.toFixed(2) %></td>
-      <td><%= totals.avgPoints.allowed.toFixed(2) %></td>
-      <td><%= totals.points.scored %></td>
-      <td><%= totals.points.allowed %></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+  <table class="table table-striped datatable" id="rating-table">
+    <thead>
+      <tr>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Win %</th>
+        <th>Avg. Scored</th>
+        <th>Avg. Allowed</th>
+        <th>Scored</th>
+        <th>Allowed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= totals.wins %></td>
+        <td><%= totals.losses %></td>
+        <td><%= totals.winP.toFixed(2) %></td>
+        <td><%= totals.avgPoints.scored.toFixed(2) %></td>
+        <td><%= totals.avgPoints.allowed.toFixed(2) %></td>
+        <td><%= totals.points.scored %></td>
+        <td><%= totals.points.allowed %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,19 +1,21 @@
-<table class="table table-striped datatable" id="placements-table">
-  <thead>
-    <tr>
-      <th>LDAP</th>
-      <th>Games</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% placements.forEach(function(player) { %>
+<div class="table-wrapper">
+  <table class="table table-striped datatable" id="placements-table">
+    <thead>
       <tr>
-        <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
-        <td><%= player.games.total %></td>
+        <th>LDAP</th>
+        <th>Games</th>
       </tr>
-    <% }); %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% placements.forEach(function(player) { %>
+        <tr>
+          <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
+          <td><%= player.games.total %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function(){

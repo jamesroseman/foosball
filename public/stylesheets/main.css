@@ -13,3 +13,8 @@ h2 {
 #system-stats-warning {
   margin-top: 15px;
 }
+
+.table-wrapper {
+  width: 100%;
+  overflow: scroll;
+}
