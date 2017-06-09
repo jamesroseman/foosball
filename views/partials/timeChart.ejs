@@ -1,0 +1,15 @@
+<div class="timeseries"></div>
+
+<script>
+  window.onload = function() {
+    var domEl = 'timeseries';
+    var data = [
+      <% games.forEach(function(game) { %>
+        {
+          'value': <%= game.date.getTime() %>
+        },
+      <% }); %>
+    ];
+    timeseries(domEl, data, false, { startHour: 8, endHour: 22 });
+  }
+</script>

@@ -46,7 +46,16 @@ app.get('/', function(request, response) {
         players.push(playersDb[ldaps[i]]);
       }
     }
-    response.render('pages/index', { page: "home", players: players, placements: placements, ldaps: ldaps });
+
+    database.ref("gamelog").once("value").then(function (gameSnapshot) {
+      var games = [];
+      Object.keys(gameSnapshot.val()).forEach(function(timestamp) {
+        games.push({
+          date: new Date(parseInt(timestamp))
+        });
+      });
+      response.render('pages/index', { page: "home", players: players, placements: placements, ldaps: ldaps, games: games });
+    });
   });
 });
 
