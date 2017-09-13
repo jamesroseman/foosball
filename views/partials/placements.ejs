@@ -9,7 +9,7 @@
     <tbody>
       <% placements.forEach(function(player) { %>
         <tr>
-          <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
+          <td><a href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
           <td><%= player.games.total %></td>
         </tr>
       <% }); %>
