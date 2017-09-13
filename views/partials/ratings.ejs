@@ -14,7 +14,7 @@
     <tbody>
       <% players.forEach(function(player) { %>
         <tr>
-          <td><a target="_blank" href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
+          <td><a href="/u/<%= player.ldap %>"><%= player.ldap %></a></td>
           <td><%= player.rating.toFixed(2) %></td>
           <td><%= player.games.wins %></td>
           <td><%= (((player.games.wins/player.games.total)*100) || 0).toFixed(2) %>%</td>

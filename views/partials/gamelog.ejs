@@ -17,10 +17,10 @@
           <td data-order="<%= game.date.getTime() %>"><%= game.date.toLocaleDateString() %> <%= game.date.toLocaleTimeString() %></td>
           <td><%= game.winGoals %></td>
           <td><%= game.losGoals %></td>
-          <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
-          <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
-          <td data-order="<%= game.losOff.ldap %>"><a target="_blank" href="/u/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
-          <td data-order="<%= game.losDef.ldap %>"><a target="_blank" href="/u/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
+          <td data-order="<%= game.winOff.ldap %>"><a href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
+          <td data-order="<%= game.winDef.ldap %>"><a href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
+          <td data-order="<%= game.losOff.ldap %>"><a href="/u/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
+          <td data-order="<%= game.losDef.ldap %>"><a href="/u/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
         </tr>
       <% }); %>
     </tbody>
