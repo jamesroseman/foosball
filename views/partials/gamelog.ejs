@@ -5,6 +5,7 @@
         <th>Date</th>
         <th>W Pts</th>
         <th>L Pts</th>
+        <th>Exp</th>
         <th>W Off</th>
         <th>Diff</th>
         <th>W Def</th>
@@ -21,6 +22,7 @@
           <td data-order="<%= game.date.getTime() %>"><%= game.date.toLocaleDateString() %> <%= game.date.toLocaleTimeString() %></td>
           <td><%= game.winGoals %></td>
           <td><%= game.losGoals %></td>
+          <td><%= (game.exp * 100).toFixed(2) %>%</td>
           <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
           <td><%= (game.winOff.postRating - game.winOff.preRating).toFixed(1) %></td>
           <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>

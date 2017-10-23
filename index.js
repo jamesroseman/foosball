@@ -66,6 +66,13 @@ app.get('/gamelog', function(request, response) {
     var timestamps = Object.keys(gamelog);
     for (var i=0; i<timestamps.length; i++) {
       gamelog[timestamps[i]].date = new Date(parseInt(timestamps[i]));
+      var teamWinExpect = elo.calcTeamWinExpect(
+        gamelog[timestamps[i]].winOff.preRating,
+        gamelog[timestamps[i]].winDef.preRating,
+        gamelog[timestamps[i]].losOff.preRating,
+        gamelog[timestamps[i]].losDef.preRating
+      )
+      gamelog[timestamps[i]].exp = teamWinExpect
       games.push(gamelog[timestamps[i]]);
     }
     response.render('pages/gamelog', { page: "gamelog", games: games });
@@ -104,6 +111,13 @@ app.get('/u/:ldap', function(request, response) {
             game.losDef.ldap == ldap)
         {
           gamelog[timestamps[i]].date = new Date(parseInt(timestamps[i]));
+          var teamWinExpect = elo.calcTeamWinExpect(
+            gamelog[timestamps[i]].winOff.preRating,
+            gamelog[timestamps[i]].winDef.preRating,
+            gamelog[timestamps[i]].losOff.preRating,
+            gamelog[timestamps[i]].losDef.preRating
+          )
+          gamelog[timestamps[i]].exp = teamWinExpect
           games.push(gamelog[timestamps[i]]);
 
           if (game.winOff.ldap == ldap) {

@@ -37,3 +37,4 @@ function calcAllRatingsFromPlayers(winOff, winDef, losOff, losDef) {
 }
 
 module.exports.calcAllRatingsFromPlayers = calcAllRatingsFromPlayers;
+module.exports.calcTeamWinExpect = calcTeamWinExpect;
