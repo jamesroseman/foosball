@@ -2,14 +2,10 @@ function eloFromRating(rating) {
   return Math.pow(10, (rating/400));
 }
 
-function ratingFromElo(elo) {
-  return 400 * Math.log10(elo);
-}
-
 function calcTeamWinExpect(winOffRating, winDefRating, losOffRating, losDefRating){
-  var eloWinAvg = (eloFromRating(winOffRating) + eloFromRating(winDefRating)) / 2;
-  var eloLosAvg = (eloFromRating(losOffRating) + eloFromRating(losDefRating)) / 2;
-  return eloWinAvg / (eloWinAvg + eloLosAvg);
+  var winRatingAvg = winOffRating + winDefRating / 2;
+  var losRatingAvg = losOffRating + losDefRating / 2;
+  return 1 / (1 + eloFromRating(losRatingAvg - winRatingAvg));
 };
 
 function calcKFactor(rating, gamesPlayed) {
@@ -28,8 +24,7 @@ function calcRatingFromTeam(toCalcRating, teammateRating, oppRating1, oppRating2
   var winExpectation = calcTeamWinExpect(toCalcRating, teammateRating, oppRating1, oppRating2);
   var score = didWin ? 1 : 0;
   var kFactor = calcKFactor(toCalcRating, gamesPlayed);
-  var compElo = eloFromRating(toCalcRating) + kFactor * (score - winExpectation);
-  return ratingFromElo(compElo);
+  return toCalcRating + kFactor * (score - winExpectation);
 }
 
 function calcAllRatingsFromPlayers(winOff, winDef, losOff, losDef) {

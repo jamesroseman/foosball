@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   var players = [];
   var placements = [];
-  database.ref("players").once("value").then(function (snapshot) {
+  database.ref("updatedPlayers").once("value").then(function (snapshot) {
     var playersDb = snapshot.val();
     var ldaps = Object.keys(playersDb);
     for (var i=0; i<ldaps.length; i++) {
@@ -47,7 +47,7 @@ app.get('/', function(request, response) {
       }
     }
 
-    database.ref("gamelog").once("value").then(function (gameSnapshot) {
+    database.ref("updatedGamelog").once("value").then(function (gameSnapshot) {
       var games = [];
       Object.keys(gameSnapshot.val()).forEach(function(timestamp) {
         games.push({
@@ -61,7 +61,7 @@ app.get('/', function(request, response) {
 
 app.get('/gamelog', function(request, response) {
   var games = [];
-  database.ref("gamelog").once("value").then(function (snapshot) {
+  database.ref("updatedGamelog").once("value").then(function (snapshot) {
     var gamelog = snapshot.val();
     var timestamps = Object.keys(gamelog);
     for (var i=0; i<timestamps.length; i++) {
@@ -91,9 +91,9 @@ app.get('/u/:ldap', function(request, response) {
     off: 0,
     def: 0
   }
-  database.ref("gamelog").once("value").then(function (snapshot) {
+  database.ref("updatedGamelog").once("value").then(function (snapshot) {
     var gamelog = snapshot.val();
-    database.ref("players").orderByChild("ldap").equalTo(ldap).once("value").then(function (snap) {
+    database.ref("updatedPlayers").orderByChild("ldap").equalTo(ldap).once("value").then(function (snap) {
       var playersDb = snap.val()[ldap];
       var timestamps = Object.keys(gamelog);
       for (var i=0; i<timestamps.length; i++) {
@@ -135,7 +135,7 @@ app.get('/u/:ldap', function(request, response) {
 
 app.get('/addGame', function(request, response) {
   var players = [];
-  database.ref("players").once("value").then(function (snapshot) {
+  database.ref("updatedPlayers").once("value").then(function (snapshot) {
     var playersDb = snapshot.val();
     var ldaps = Object.keys(playersDb);
     for (var i=0; i<ldaps.length; i++) {
@@ -161,7 +161,7 @@ app.post('/addGame', function(request, response) {
     return index == self.indexOf(elem);
   });
 
-  database.ref("players").once("value").then(function (snapshot) {
+  database.ref("updatedPlayers").once("value").then(function (snapshot) {
     var playersDb = snapshot.val();
     var newPlayersDb = playersDb;
     var winOff = playersDb[request.body.winOffLdap];
@@ -238,7 +238,7 @@ app.get('/addUser', function(request, response) {
 });
 
 app.post('/addUser', function(request, response) {
-  database.ref("players").once("value").then(function (snapshot) {
+  database.ref("updatedPlayers").once("value").then(function (snapshot) {
     var ldap = request.body.ldap;
     var ldaps = Object.keys(snapshot.val());
     if (!request.body.ldap || ldaps.indexOf(ldap) > -1) {
