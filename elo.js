@@ -3,9 +3,12 @@ function eloFromRating(rating) {
 }
 
 function calcTeamWinExpect(winOffRating, winDefRating, losOffRating, losDefRating){
-  var winRatingAvg = winOffRating + winDefRating / 2;
-  var losRatingAvg = losOffRating + losDefRating / 2;
-  return 1 / (1 + eloFromRating(losRatingAvg - winRatingAvg));
+  var winRatingAvg = (winOffRating + winDefRating) / 2;
+  var losRatingAvg = (losOffRating + losDefRating) / 2;
+  var winEloAvg = eloFromRating(winRatingAvg)
+  var losEloAvg = eloFromRating(losRatingAvg)
+  // To calculate win expectation for Ta vs Tb: ELO(Ta) / Sum(ELO(Ta), ELO(Tb))
+  return (winEloAvg) / (winEloAvg + losEloAvg)
 };
 
 function calcKFactor(rating, gamesPlayed) {

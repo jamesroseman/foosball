@@ -6,14 +6,11 @@
         <th>W Pts</th>
         <th>L Pts</th>
         <th>Exp</th>
+        <th>Diff</th>
         <th>W Off</th>
-        <th>Diff</th>
         <th>W Def</th>
-        <th>Diff</th>
         <th>L Off</th>
-        <th>Diff</th>
         <th>L Def</th>
-        <th>Diff</th>
       </tr>
     </thead>
     <tbody>
@@ -23,14 +20,11 @@
           <td><%= game.winGoals %></td>
           <td><%= game.losGoals %></td>
           <td><%= (game.exp * 100).toFixed(2) %>%</td>
-          <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
           <td><%= (game.winOff.postRating - game.winOff.preRating).toFixed(1) %></td>
+          <td data-order="<%= game.winOff.ldap %>"><a target="_blank" href="/u/<%= game.winOff.ldap %>"><%= game.winOff.ldap %></a></td>
           <td data-order="<%= game.winDef.ldap %>"><a target="_blank" href="/u/<%= game.winDef.ldap %>"><%= game.winDef.ldap %></a></td>
-          <td><%= (game.winDef.postRating - game.winDef.preRating).toFixed(1) %></td>
           <td data-order="<%= game.losOff.ldap %>"><a target="_blank" href="/u/<%= game.losOff.ldap %>"><%= game.losOff.ldap %></a></td>
-          <td><%= (game.losOff.postRating - game.losOff.preRating).toFixed(1) %></td>
           <td data-order="<%= game.losDef.ldap %>"><a target="_blank" href="/u/<%= game.losDef.ldap %>"><%= game.losDef.ldap %></a></td>
-          <td><%= (game.losDef.postRating - game.losDef.preRating).toFixed(1) %></td>
         </tr>
       <% }); %>
     </tbody>
