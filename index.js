@@ -218,6 +218,7 @@ app.post('/addGame', function(request, response) {
     // Write data to DB
     for(var i=0; i<ldaps.length; i++) {
       database.ref("players/" + ldaps[i]).set(newPlayersDb[ldaps[i]]);
+      database.ref("updatedPlayers/" + ldaps[i]).set(newPlayersDb[ldaps[i]]);
     }
     database.ref("gamelog/" + Date.now()).set({
       "winGoals": request.body.winGoals,
@@ -284,6 +285,7 @@ app.post('/addUser', function(request, response) {
       return;
     }
     database.ref("players/" + ldap).set(defaults.defaultPlayer(ldap));
+    database.ref("updatedPlayers/" + ldap).set(defaults.defaultPlayer(ldap));
     response.redirect('/');
   });
 });
