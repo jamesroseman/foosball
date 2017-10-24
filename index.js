@@ -219,6 +219,30 @@ app.post('/addGame', function(request, response) {
     for(var i=0; i<ldaps.length; i++) {
       database.ref("players/" + ldaps[i]).set(newPlayersDb[ldaps[i]]);
     }
+    database.ref("gamelog/" + Date.now()).set({
+      "winGoals": request.body.winGoals,
+      "winOff": {
+        "ldap": winOff.ldap,
+        "preRating": winOffPre,
+        "postRating": ratings[winOff.ldap],
+      },
+      "winDef": {
+        "ldap": winDef.ldap,
+        "preRating": winDefPre,
+        "postRating": ratings[winDef.ldap],
+      },
+      "losGoals": request.body.losGoals,
+      "losOff": {
+        "ldap": losOff.ldap,
+        "preRating": losOffPre,
+        "postRating": ratings[losOff.ldap],
+      },
+      "losDef": {
+        "ldap": losDef.ldap,
+        "preRating": losDefPre,
+        "postRating": ratings[losDef.ldap],
+      },
+    });
     database.ref("updatedGamelog/" + Date.now()).set({
       "winGoals": request.body.winGoals,
       "winOff": {
