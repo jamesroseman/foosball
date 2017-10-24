@@ -219,7 +219,7 @@ app.post('/addGame', function(request, response) {
     for(var i=0; i<ldaps.length; i++) {
       database.ref("players/" + ldaps[i]).set(newPlayersDb[ldaps[i]]);
     }
-    database.ref("gamelog/" + Date.now()).set({
+    database.ref("updatedGamelog/" + Date.now()).set({
       "winGoals": request.body.winGoals,
       "winOff": {
         "ldap": winOff.ldap,
